@@ -13,10 +13,11 @@ export default TransitionToListenerRoute.extend({
 	actions:{
 	    login(){
 	    	let _this = this;
-	        get(this,'session').open('firebase', { provider: 'google'}).then(function(data) {
-	            console.log(data);
+	        get(this,'session').open('firebase', { provider: 'facebook'}).then(function(data) {
+	            // console.log(data);
 	            let user = data.currentUser;
-	            let uid = user.get('uid');
+	            // let uid = user.get('uid');
+	            console.log(user);
 	            // console.log('Tá ONLINE AI?', user.get('isOnline'));
 	            // user.set('isOnline', true);
 	         //    let userId = user.get('id');
@@ -28,17 +29,17 @@ export default TransitionToListenerRoute.extend({
 		        //     	console.log('Tá ONLINE AI?', user.get('isOnline'));
 		        //     });
 		        // });
-	            let isAdmin = user.isAdmin;
-	            let isNew = user.isNew;
-	            let userName = user.get('displayName');
-	            console.log('NOME DO USUÁRIO', userName);
-	            console.log('app: isAdmin', isAdmin);
-	            console.log('app: isNew', isNew);
+	            // let isAdmin = user.isAdmin;
+	            // let isNew = user.isNew;
+	            // let userName = user.get('displayName');
+	            // console.log('NOME DO USUÁRIO', userName);
+	            // console.log('app: isAdmin', isAdmin);
+	            // console.log('app: isNew', isNew);
 
-	            if (isNew) {
-	            	// se usuário novo, manda pra completar o cadastro/perfil
-	            	_this.router.transitionTo('usuario.perfil', uid);
-	            }
+	            // if (isNew) {
+	            // 	// se usuário novo, manda pra completar o cadastro/perfil
+	            // 	_this.router.transitionTo('usuario.perfil', uid);
+	            // }
 	            // _this.get('store').query('user', {orderBy: 'uid', equalTo: uid }).then( function(users) {
 				//     let userRecord = users.get('firstObject');
 				//      _this.get('store').findRecord('funcao', 6).then(function(funcao) {

@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+	  <div class="col l12 m12 s12">
+	    <h1 class="header">{{props.title}}</h1>
+	    {{props.subtitle}}
+	  </div>
+	</div>
+	{{!-- {{#each model as |noticia|}}
+		{{noticia.title}}
+		 {{#each noticia.tags as |value|}}
+        	<span>{{link-to value.title "tag" value.slug 1}}</span>
+      	{{/each}}
+	{{/each}} --}}
+	<div class="row">
+	  <div class="col l12 m12 s12">
+	  	{{#if session.isAuthenticated}}
+	  		{{perguntas-list model=model}}
+	    {{else}}
+	    	Você precisa estar logado para ver as perguntas
+	    {{/if}}
+	  </div>
+	</div>
+</div>
+{{outlet}}

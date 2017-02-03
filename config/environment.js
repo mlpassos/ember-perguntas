@@ -7,18 +7,22 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'auto',
     firebase: {
-      apiKey: "AIzaSyDLHtT7XeTZqbJYbAZprumVFHa9ZJuX2Tc",
-      authDomain: "e-pautas.firebaseapp.com",
-      databaseURL: "https://e-pautas.firebaseio.com",
-      storageBucket: "e-pautas.appspot.com",
-      messagingSenderId: "568980210268"
+      apiKey: "AIzaSyCqf5Q__X91znhiNSmEAEcPs0LMtkFb_V8",
+      authDomain: "para-responde.firebaseapp.com",
+      databaseURL: "https://para-responde.firebaseio.com",
+      storageBucket: "para-responde.appspot.com",
+      messagingSenderId: "875663752394"
     },
     torii: {  
       sessionServiceName: 'session',
       providers: {
         'google-oauth2': {
-          apiKey:"605443485040-v57m0s296k2befmmtjds8p8gu19mtbmd.apps.googleusercontent.com",
+          apiKey:"875663752394-ove2klo53p8ghamjr1p7l0loob08711o.apps.googleusercontent.com",
           redirectUri: "https://localhost:4200/oauth2callback"
+        },
+        'facebook-oauth2': {
+          apiKey:      '5f009784cfc6d7ff48b4e309c5eebc76',
+          redirectUri: 'https://para-responde.firebaseapp.com/__/auth/handler'
         }
       }
     },
