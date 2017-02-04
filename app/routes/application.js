@@ -15,7 +15,7 @@ export default TransitionToListenerRoute.extend({
 	    	let _this = this;
 	        get(this,'session').open('firebase', { provider: 'facebook'}).then(function(data) {
 	            // console.log(data);
-	            let user = data.currentUser;
+	            let user = data.currentUser.refreshToken;
 	            // let uid = user.get('uid');
 	            console.log(user);
 	            // console.log('Tá ONLINE AI?', user.get('isOnline'));

@@ -3,6 +3,10 @@ import ToriiFirebaseAdapter from 'emberfire/torii-adapters/firebase';
 export default ToriiFirebaseAdapter.extend({  
   // store: Ember.inject.service(),
   firebase: Ember.inject.service()
+  // ,
+  // open: function(authorization) {
+  // 	console.log('auth', authorization);
+  // }
  //  ,
  //  open: function(authorization) {
  //  	console.log('auth', authorization);
