@@ -6,6 +6,7 @@ export default ToriiFirebaseAdapter.extend({
   // ,
   // open: function(authorization) {
   // 	console.log('auth', authorization);
+  // 	// console.log('code', authorizationCode);
   // }
  //  ,
  //  open: function(authorization) {

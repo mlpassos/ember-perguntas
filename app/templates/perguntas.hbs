@@ -14,8 +14,8 @@
 	<div class="row">
 	  <div class="col l12 m12 s12">
 	  	{{#if session.isAuthenticated}}
-	  		{{!-- {{perguntas-list model=model}} --}}
-	  		{{log 'model' model}}
+	  		{{perguntas-list model=model}}
+	  		{{!-- {{log 'model' model}} --}}
 	    {{else}}
 	    	Você precisa estar logado para ver as perguntas
 	    {{/if}}

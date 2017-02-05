@@ -13,11 +13,11 @@ export default TransitionToListenerRoute.extend({
 	actions:{
 	    login(){
 	    	let _this = this;
-	        get(this,'session').open('firebase', { provider: 'facebook'}).then(function(data) {
+	        get(this,'session').open('facebook-connect').then(function(authorization) {
 	            // console.log(data);
-	            let user = data.currentUser.refreshToken;
+	            // let access_token = authorization.accessToken;
 	            // let uid = user.get('uid');
-	            console.log(user);
+	            console.log(authorization);
 	            // console.log('Tá ONLINE AI?', user.get('isOnline'));
 	            // user.set('isOnline', true);
 	         //    let userId = user.get('id');
