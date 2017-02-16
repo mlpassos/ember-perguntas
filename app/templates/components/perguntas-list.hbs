@@ -3,21 +3,10 @@
 	{{log model}}
 	<div class="col s12 m12">
 		{{#each model as |pergunta|}}
-		  {{#each pergunta.comments.data as |comentario|}}
 		  	{{pergunta.message}}
 		  	<hr>
-		    <blockquote>
-		    	{{comentario.message}}<br>
-		    	- {{comentario.from.name}}
-		    </blockquote>
-		    <hr>
 		    {{else}}
-		    {{!-- Sem comentários marcados.<hr> --}}
-		  {{/each}}
+			<b>Sem posts para analisar</b>
 		{{/each}}
 	</div>
-	{{!-- <div class="col s12 m12">
-		selections: {{checkboxSelections}}
-		<a href="#" {{action "getPrefs" checkboxSelections}}>Prefs</a>
-	</div> --}}
 </div>

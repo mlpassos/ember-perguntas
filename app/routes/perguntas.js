@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 		subtitle: 'Perguntas da página Governo do Pará'
 	},
 	model() {
-		let tk  = this.get('session.currentUser.accessToken');
+		let tk  = this.get('session.accessToken');
 		// console.log('tk', tk);
 		// console.log(`http://www.instadev.com.br/facebook-api-wrapper/`, {
 		// 	access_token: tk

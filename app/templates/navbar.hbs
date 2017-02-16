@@ -1,11 +1,12 @@
-{{#md-navbar name='e-pautas' session=session class='indigo' homeRoute='home'}}
+{{log 'session' session.name}}
+{{#md-navbar name='Pará Responde' session=session class='indigo' homeRoute='home'}}
   {{#link-to 'home' tagName='li'}}
     {{link-to 'Home'}}
   {{/link-to}}
   {{#if session.isAuthenticated}}
       {{#if session.currentUser.isAdmin}}
         {{!-- ADMIN: Usuários, Pautas, Logout --}}
-        {{#link-to 'usuario.perfil' session.currentUser.uid tagName='li'}}
+        {{#link-to 'usuario.perfil' session.id tagName='li'}}
           <a href="#">
             <img src={{session.currentUser.photoURL}} class="img-perfil" alt="...">
           </a>
@@ -15,9 +16,9 @@
         {{/link-to}}
       {{else}}
         {{!-- USUÁRIO: Perfil, Pautas, Logout --}}
-        {{#link-to 'usuario.perfil' session.currentUser.uid tagName='li'}}
+        {{#link-to 'usuario.perfil' session.id tagName='li'}}
           <a href="#">
-            <img src={{session.currentUser.photoURL}} class="img-perfil" alt="...">
+            <img src={{session.picture.data.url}} class="img-perfil" alt="...">
           </a>
         {{/link-to}}
       {{/if}}

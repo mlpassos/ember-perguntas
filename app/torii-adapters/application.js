@@ -2,12 +2,20 @@ import Ember from 'ember';
 import ToriiFirebaseAdapter from 'emberfire/torii-adapters/firebase';  
 export default ToriiFirebaseAdapter.extend({  
   // store: Ember.inject.service(),
-  firebase: Ember.inject.service()
-  // ,
-  // open: function(authorization) {
-  // 	console.log('auth', authorization);
-  // 	// console.log('code', authorizationCode);
-  // }
+  firebase: Ember.inject.service(),
+  open: function(authorization) {
+  	console.log('auth', authorization);
+  	let tk  = authorization.accessToken;
+	return $.get('http://www.instadev.com.br/facebook-api-wrapper/user/',  {access_token: tk}).then(function(user) {
+		let jsonUser = JSON.parse(user);
+
+		jsonUser.accessToken = authorization.accessToken;
+		jsonUser.expiresIn = authorization.expiresIn;
+		return jsonUser;
+	});
+  	// return authorization;
+  	// console.log('code', authorizationCode);
+  }
  //  ,
  //  open: function(authorization) {
  //  	console.log('auth', authorization);
