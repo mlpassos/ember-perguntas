@@ -1,0 +1,20 @@
+{{yield}}
+<div class="container">
+	<div class="row">
+		<div class="col l12 m12 s12">
+			  <img src="{{page.picture.data.url}}" alt="...">
+			  <br>
+			  {{page.name}} / {{page.category}}
+			  <br>
+			  {{page.about}}
+			  <hr>
+		</div>
+		<div class="col l12 m12 s12">
+			<ul>
+				{{#each page.posts.data as |post|}}
+			    	<li>{{post.message}}</li>
+			  	{{/each}}
+			</ul>
+		</div>
+	</div>
+</div>

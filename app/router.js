@@ -40,7 +40,10 @@ Router.map(function() {
     this.route('perfil');    
   });
   this.route('admin');
-  this.route('perguntas');//, {path: 'perguntas/'}function() {});
+  this.route('pages');
+  this.route('page', {path: 'page/:pageid'}, function() {
+    
+  });
 });
 
 export default Router;

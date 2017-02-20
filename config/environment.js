@@ -21,11 +21,13 @@ module.exports = function(environment) {
           redirectUri: "https://localhost:4200/oauth2callback"
         },
         'facebook-oauth2': {
-          apiKey:      '5f009784cfc6d7ff48b4e309c5eebc76',
+          apiKey: '5f009784cfc6d7ff48b4e309c5eebc76',
+          scope: 'manage_pages',
           redirectUri: 'https://para-responde.firebaseapp.com/__/auth/handler'
         },
         'facebook-connect': {
-          appId: '188760751603326'
+          appId: '188760751603326',
+          scope: 'manage_pages'
         }
       }
     },

@@ -1,0 +1,14 @@
+{{yield}}
+<div class="row">
+	{{log 'modelo' model}}
+	<div class="col s12 m12">
+		{{#each model as |page|}}
+		  	{{#link-to 'page' page.id}}
+		    	{{page.name}}
+		  	{{/link-to}}
+		  	<hr>
+		    {{else}}
+			<b>Sem posts para analisar</b>
+		{{/each}}
+	</div>
+</div>
