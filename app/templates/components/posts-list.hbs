@@ -1,0 +1,57 @@
+{{!-- {{yield}}
+<div class="row">
+	<div class="col l12 m12 s12">
+		<ul>
+			{{#each posts as |post|}}
+		    	<li>{{post.message}}</li>
+		  	{{/each}}
+		</ul>
+	</div>
+</div> --}}
+{{yield}}
+{{!-- "col l3 m4 s12 isoitem" --}}
+<div class="row isogrid">
+  {{#each posts as |post|}}
+  	<div class="col l3 m4 s12 isoitem">
+      {{#md-card title='Título do post'
+      image=post.full_picture 
+      activator=true}}
+        {{#md-card-content}}
+          <p>
+            {{substr post.message size=12}}
+            {{!-- <hr>
+            Story: {{post.story}}
+            <br>
+            Nome: {{post.name}}
+            <br>
+            Caption: {{post.caption}}
+            <br>
+            Descrição: {{substr post.description size=5}}
+            <br>
+            Tipo: {{post.type}}
+            <br>
+            Tipo de status: {{post.status_type}} --}}
+            {{!-- {{#each post as |item|}}
+              
+            {{/each}} --}}
+          </p>
+          <hr>
+          <div class="post-meta-box">
+          	<ul>
+          		<li>
+          			<i class="fa fa-share-alt-square"></i> {{post.shares.count}}
+          		</li>
+          		{{post-reactions post.reactions}}
+          	</ul>
+          </div>
+          
+        {{/md-card-content}}
+        {{#md-card-reveal}}
+          <p>
+           + informações
+          </p>
+        {{/md-card-reveal}}
+      {{/md-card}}
+    </div>
+{{/each}}
+</div>

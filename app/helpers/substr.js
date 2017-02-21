@@ -3,6 +3,10 @@ import Ember from 'ember';
 export function substr([value], namedArgs) {
   // if (typeof value != 'undefined') {
   //   console.log('aqui: ' + value);
+  if (typeof value === 'undefined') {
+    let stop = 'sem mensagem';
+    return Ember.String.htmlSafe(stop);
+  }
   let str = value;
   // console.log('str:', str);
   // } else {

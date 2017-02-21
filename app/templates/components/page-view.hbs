@@ -1,20 +1,20 @@
 {{yield}}
 <div class="container">
 	<div class="row">
-		<div class="col l12 m12 s12">
-			  <img src="{{page.picture.data.url}}" alt="...">
-			  <br>
-			  {{page.name}} / {{page.category}}
-			  <br>
-			  {{page.about}}
-			  <hr>
-		</div>
-		<div class="col l12 m12 s12">
-			<ul>
-				{{#each page.posts.data as |post|}}
-			    	<li>{{post.message}}</li>
-			  	{{/each}}
-			</ul>
+		<div id="cover-box" class="col l12 m12 s12" style="position:relative;height:{{tamanhoCover}}px;background-image:url({{page.cover.source}});background-size: cover;background-repeat: no-repeat;background-attachment: scroll;background-position: center center;">
+			  <div class="page-info-box">
+			  	<div class="page-info-box-header">
+				  	<img src="{{page.picture.data.url}}" alt="...">
+				  	<h3 class="page-info-box-title">{{page.name}}</h3>
+				  	<small>{{page.category}}</small>
+				</div>
+			  	<div class="page-info-box-footer">
+				  	<p class="page-info-box-about">
+				  		{{page.about}}
+				  	</p>
+				</div>
+			  </div>
 		</div>
 	</div>
+	{{posts-list posts=page.posts.data}}
 </div>

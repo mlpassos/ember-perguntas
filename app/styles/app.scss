@@ -1,6 +1,42 @@
 @import 'materialize';
 @import 'ember-cli-materialize';
 
+.page-info-box {
+  position:absolute;
+  bottom:-13px;
+  left:5px;
+  color: rgb(255,255,255);
+}
+
+.page-info-box-header {
+  padding:10px;
+  background-color: rgba(0,0,0,.3);
+}
+.page-info-box-footer {
+  padding:0 0 0 10px;
+  // background-color: rgba(0,0,0,.3);
+}
+
+.link {
+  background-color: green;
+}
+.status {
+  background-color: green;
+}
+.photo {
+  background-color: green;
+}
+.video {
+  background-color: green;
+}
+.offer {
+  background-color: green;
+}
+
+.post-meta-box {
+  float:right;
+}
+
 .tags-item {
 	background-color:green !important;
 }
