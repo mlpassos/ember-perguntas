@@ -8,9 +8,10 @@ export function postReactions([reactions]) {
    let haha = 0;
    let angry = 0;
    let thankful = 0;
-
-   reactions.data.map(function(reaction) {
-   	switch (reaction.type) {
+   // debugger;
+   reactions.map(function(reaction) {
+   	console.log(reaction.type);
+      switch (reaction.type) {
    		case 'LIKE':
    			like += 1;
    			break;
