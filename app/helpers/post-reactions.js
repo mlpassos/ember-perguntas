@@ -91,6 +91,8 @@ export function postReactions([reactions]) {
    // let saida = countReactions(reactions, out);
    
    // out += '</ul>';
+   // var PromiseObject = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+   
    var saida = new Promise(function(resolve, reject) {
      // on success
      let value = countReactions(reactions, '');
@@ -103,6 +105,9 @@ export function postReactions([reactions]) {
       // debugger;
       return Ember.String.htmlSafe(data);
    });
+   // return PromiseObject.create({
+   //    promise: this.get('something')
+   // });
 
    // return Ember.String.htmlSafe(saida);
    
