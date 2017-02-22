@@ -1,15 +1,4 @@
-{{!-- {{yield}}
-<div class="row">
-	<div class="col l12 m12 s12">
-		<ul>
-			{{#each posts as |post|}}
-		    	<li>{{post.message}}</li>
-		  	{{/each}}
-		</ul>
-	</div>
-</div> --}}
 {{yield}}
-{{!-- "col l3 m4 s12 isoitem" --}}
 <div class="row isogrid">
   {{#each posts as |post|}}
   	<div class="col l3 m4 s12 isoitem">
@@ -39,9 +28,13 @@
           <div class="post-meta-box">
           	<ul>
           		<li>
-          			<i class="fa fa-share-alt-square"></i> {{post.shares.count}}
-          		</li>
-          		{{post-reactions post.reactions.data}}
+                {{#if post.shares.count}}
+          			  <i class="fa fa-share-alt-square"></i> {{post.shares.count}}
+                {{else}}
+                  <i class="fa fa-share-alt-square"></i> 0
+          		  {{/if}}
+              </li>
+          		{{post-reactions post.reactions}}
           	</ul>
           </div>
           
