@@ -24,9 +24,10 @@ export default Ember.Route.extend({
 			}).then(item => {
 				let json = JSON.parse(item);
 				return json.posts.data.map(post=>{ 
-					return getJSON(post.id, tk);//then(data=> {
-					// 	return data;
-					// });
+					return getJSON(post.id, tk).then(data=> {
+						console.log('response', data );
+						return data;
+					});
 		    	});
 		    })
 		});	
@@ -38,7 +39,7 @@ export default Ember.Route.extend({
 		        id: id
 		    }).then(item => {
 		        let jsonItem = JSON.parse(item);
-		        console.log('response', jsonItem);
+		        // console.log('response', jsonItem);
 		        resolve(jsonItem);
 		        // return jsonItem;
 		    }, function() {
