@@ -34,7 +34,20 @@
                   <i class="fa fa-share-alt-square"></i> 0
           		  {{/if}}
               </li>
-          		{{post-reactions post.id session.accessToken}}
+              {{log 'isPending Antes' post.reactions_new.isPending}}
+              {{log 'new' post.reactions_new}}
+              {{log 'isPending Depois' post.reactions_new.isPending}}
+              {{!-- {{debugger}} --}}
+              Likes:  {{post.reactions_new.like.summary.total_count}}
+              {{!-- {{#if post.reactions_new.isPending}}
+                Carregando...
+              {{else}}
+                {{post.reactions_new.like.summary.total_count}}
+              {{/if}} --}}
+          		{{!-- {{post-reactions post.id session.accessToken}} --}}
+              {{!-- {{#each post.reactions_new.like.summary.total_count as |like|}}
+                Likes: {{like.summary.total_count}}
+              {{/each}} --}}
           	</ul>
           </div>
           
