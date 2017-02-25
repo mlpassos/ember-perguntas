@@ -1,7 +1,7 @@
 {{yield}}
 <div class="row isogrid">
   {{#each posts as |post|}}
-  	<div class="col l3 m4 s12 isoitem">
+  	<div class="col l4 m4 s12 isoitem">
       {{#md-card title='Título do post'
       image=post.full_picture 
       activator=true}}
@@ -24,21 +24,27 @@
               
             {{/each}} --}}
           </p>
+          {{!-- <hr>
+          <p>
+            Tipo de status: {{post.status_type}}
+          </p> --}}
           <hr>
           <div class="post-meta-box">
+            {{#if post.shares.count}}
+              <p>
+                {{pluralize post.shares.count 'compartilhamento'}}
+              </p>
+              <hr>
+            {{/if}}
           	<ul>
-          		<li>
-                {{#if post.shares.count}}
-          			  <i class="fa fa-share-alt-square"></i> {{post.shares.count}}
-                {{else}}
-                  <i class="fa fa-share-alt-square"></i> 0
-          		  {{/if}}
-              </li>
-              {{log 'reacoes' reactions}}
-              {{!-- {{#each reactions as |reaction|}}
-                Likes: {{reactions.like.summary.total_count}}
-              {{/each}} --}}
+              {{log 'proxy' proxy}}
+              {{#each proxy as |reaction|}}
+                {{post-reactions post.id reaction}}
+              {{/each}}
           	</ul>
+            <p class="post-type">
+              {{post-class post.type}}
+            </p>
           </div>
           
         {{/md-card-content}}

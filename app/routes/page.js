@@ -1,8 +1,7 @@
 import Ember from 'ember';
 
-var PromiseObject = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
-
 export default Ember.Route.extend({
+	proxy: [],
 	model(params) {
 		var tk  = this.get('session.accessToken');
 		let id = params.pageid;
@@ -15,7 +14,6 @@ export default Ember.Route.extend({
 				id: id
 			}).then(item => {
 				let json = JSON.parse(item);
-				// getReactions(json);
 				return json;
 		    }),
 		    reactions: $.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
@@ -25,12 +23,16 @@ export default Ember.Route.extend({
 				let json = JSON.parse(item);
 				return json.posts.data.map(post=>{ 
 					return getJSON(post.id, tk).then(data=> {
-						console.log('response', data );
+						_this.get('proxy').addObject(data);
 						return data;
-					});
-		    	});
+					});	
+				});
 		    })
 		});	
+	},
+	setupController(controller) {
+		this._super(...arguments);
+		controller.set('proxy', this.get('proxy'));
 	},
 	getJSON: function(id, tk) {
 	    return new Promise(function(resolve, reject){
@@ -39,9 +41,7 @@ export default Ember.Route.extend({
 		        id: id
 		    }).then(item => {
 		        let jsonItem = JSON.parse(item);
-		        // console.log('response', jsonItem);
 		        resolve(jsonItem);
-		        // return jsonItem;
 		    }, function() {
 		        reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
 		    });

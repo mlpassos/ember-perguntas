@@ -21,6 +21,11 @@
   margin-right: 5px;
 }
 
+.post-meta-box .post-type {
+  float:right;
+  padding: 5px;
+}
+
 .fb-reactions {
   width: 15px;
   height: 15px;
@@ -44,7 +49,7 @@
 }
 
 .post-meta-box {
-  float:right;
+  // background-color:green;
 }
 
 .tags-item {
