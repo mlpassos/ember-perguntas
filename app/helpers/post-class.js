@@ -4,18 +4,19 @@ export function postClass([type]) {
    let strClass = '';
    switch(type) {
 	    case 'link':
-	        strClass = '<i class="fa fa-link"></i> ' + type;
+	        strClass = '<i class="fa fa-link link"></i> ' + type;
 	        break;
 	    case 'status':
-	        strClass = '<i class="fa fa-comment-o"></i> ' + type;
+	        strClass = '<i class="fa fa-comment-o status"></i> ' + type;
 	        break;
 	    case 'photo':
-	        strClass = '<i class="fa fa-camera"></i> ' + type;
+	        strClass = '<i class="fa fa-camera photo"></i> ' + type;
 	        break;
 	    case 'video':
-	        strClass = '<i class="fa fa-video-camera"></i> ' + type;
+	        strClass = '<i class="fa fa-video-camera video"></i> ' + type;
+	        break;
 	    case 'offer':
-	        strClass = '<i class="fa fa-paper-plane"></i> ' + type;
+	        strClass = '<i class="fa fa-home offer"></i> ' + type;
 	        break;
 	    default:
 			console.log('post sem tipo');

@@ -8,17 +8,26 @@ export default Ember.Component.extend({
 	},
 	didInsertElement() {
 		this._super(...arguments);
-		console.log('InsertElement');
-	    let $grid = this.$('.isogrid').isotope({
+		console.log('InsertElement aqui');
+	    var $grid = this.$('.isogrid').isotope({
 	      // options
 	      itemSelector: '.isoitem',
-	      layoutMode: 'fitRows',
-	      percentPosition: true
+	      // layoutMode: 'fitRows',
+		  percentPosition: true
 	    });
 	    $grid.imagesLoaded().progress( function() {
 	      $grid.isotope('layout');
 	    });
+	    // this.set('grid', $grid);
 	},
+	// didRender() {
+	// 	console.log('didrender');
+	// 	let $grid = this.get('grid');
+	// 	$grid.imagesLoaded().progress( function() {
+	// 	  console.log('layout');
+	//       $grid.isotope('layout');
+	//     });
+	// },
 	willDestroyElement() {
 	  this._super(...arguments);
 	  // this.$().off('animationend');

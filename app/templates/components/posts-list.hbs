@@ -2,32 +2,10 @@
 <div class="row isogrid">
   {{#each posts as |post|}}
   	<div class="col l4 m4 s12 isoitem">
-      {{#md-card title='Título do post'
-      image=post.full_picture 
-      activator=true}}
+      {{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
+      image=post.full_picture}}
         {{#md-card-content}}
-          <p>
-            {{substr post.message size=12}}
-            {{!-- <hr>
-            Story: {{post.story}}
-            <br>
-            Nome: {{post.name}}
-            <br>
-            Caption: {{post.caption}}
-            <br>
-            Descrição: {{substr post.description size=5}}
-            <br>
-            Tipo: {{post.type}}
-            <br>
-            Tipo de status: {{post.status_type}} --}}
-            {{!-- {{#each post as |item|}}
-              
-            {{/each}} --}}
-          </p>
-          {{!-- <hr>
-          <p>
-            Tipo de status: {{post.status_type}}
-          </p> --}}
+          {{substr post.message size=40}}
           <hr>
           <div class="post-meta-box">
             {{#if post.shares.count}}
@@ -37,22 +15,19 @@
               <hr>
             {{/if}}
           	<ul>
-              {{log 'proxy' proxy}}
-              {{#each proxy as |reaction|}}
+              {{#each reactions as |reaction|}}
                 {{post-reactions post.id reaction}}
               {{/each}}
           	</ul>
-            <p class="post-type">
+            {{!-- <p class="post-type">
               {{post-class post.type}}
-            </p>
+            </p> --}}
           </div>
-          
         {{/md-card-content}}
-        {{#md-card-reveal}}
-          <p>
-           + informações
-          </p>
-        {{/md-card-reveal}}
+        {{#md-card-action}}
+            {{#link-to "page.post" post.id}}Ver mais{{/link-to}}
+            {{!-- {{#link-to "noticia"}}Link 2{{/link-to}} --}}
+        {{/md-card-action}}
       {{/md-card}}
     </div>
 {{/each}}

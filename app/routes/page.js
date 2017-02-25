@@ -1,38 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-	proxy: [],
+	reactions: [],
 	model(params) {
 		var tk  = this.get('session.accessToken');
 		let id = params.pageid;
 		var _this = this;
 		let count = 0;
 		var getJSON = this.get('getJSON');
-		return Ember.RSVP.hash({
-	        page: $.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
+
+	        return $.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
 				access_token: tk,
 				id: id
 			}).then(item => {
-				let json = JSON.parse(item);
-				return json;
-		    }),
-		    reactions: $.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
-				access_token: tk,
-				id: id
-			}).then(item => {
-				let json = JSON.parse(item);
-				return json.posts.data.map(post=>{ 
-					return getJSON(post.id, tk).then(data=> {
-						_this.get('proxy').addObject(data);
-						return data;
-					});	
-				});
-		    })
-		});	
+					let json = JSON.parse(item);
+					json.posts.data.map(post=>{ 
+						getJSON(post.id, tk).then(data=> {
+							_this.get('reactions').addObject(data);
+						});	
+					});
+					return json;
+			});
+			// });
+	},
+	deactivate() {
+		this.set('reactions', []);
 	},
 	setupController(controller) {
 		this._super(...arguments);
-		controller.set('proxy', this.get('proxy'));
+		controller.set('reactions', this.get('reactions'));
 	},
 	getJSON: function(id, tk) {
 	    return new Promise(function(resolve, reject){
