@@ -1,1 +1,8 @@
-{{page-view page=model reactions=reactions session=session}}
+{{!-- {{log 'modeloPage' model}}
+{{page-view page=model reactions=reactions session=session}} --}}
+{{#if session.isAuthenticated}}
+  {{outlet}}
+{{else}}
+  <h1 class="header">Acesso negado</h1>
+  Você não tem permissão para acessar essa área
+{{/if}}  

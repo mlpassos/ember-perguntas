@@ -1,0 +1,37 @@
+{{yield}}
+<div class="row">
+	<div class="col l12">
+		<p>{{post.message}}</p>
+	</div>
+</div>
+{{#each post.comments.data as |comment|}}
+<div class="row">
+	<div class="col l12">
+		<div class="comment-box">
+		  	{{#each postUsers as |postUser|}}
+			  {{user-info comment.from.id postUser}} 
+			{{/each}}&nbsp;
+			<div class="comment-box-body">
+				<strong>{{comment.from.name}}</strong>&nbsp;{{comment.message}}
+				<br>
+			  	<img src="/assets/images/facebook-like.png" class="comment-like fb-reactions"> {{comment.like_count}}
+			</div>
+			<div class="comment-box-footer">
+				<ul class="indicators">
+					<li class="indicators-item green">
+						
+					</li>
+					<li class="indicators-item yellow">
+						
+					</li>
+					<li class="indicators-item red">
+						
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+  </div>
+{{/each}}
+
+{{!-- {{comments-list pageid=page.id posts=page.posts.data reactions=reactions session=session}} --}}
