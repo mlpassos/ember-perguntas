@@ -1,23 +1,35 @@
 {{yield}}
-<div class="row">
-	<div class="col l12">
-		<p>{{post.message}}</p>
-	</div>
-</div>
-{{#each post.comments.data as |comment|}}
-<div class="row">
-	<div class="col l12">
-		<div class="comment-box">
-		  	{{#each postUsers as |postUser|}}
-			  {{user-info comment.from.id postUser}} 
-			{{/each}}&nbsp;
-			<div class="comment-box-body">
-				<strong>{{comment.from.name}}</strong>&nbsp;{{comment.message}}
-				<br>
-			  	<img src="/assets/images/facebook-like.png" class="comment-like fb-reactions"> {{comment.like_count}}
-			</div>
-			<div class="comment-box-footer">
-				<ul class="indicators">
+<div class="row post-row">
+	<div class="col l4">
+		{{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
+	      image=post.full_picture class="post-card"}}
+	        {{#md-card-content}}
+	          {{substr post.message size=40}}
+	          <hr>
+	          <div class="post-meta-box">
+	            {{#if post.shares.count}}
+	              <p>
+	                {{pluralize post.shares.count 'compartilhamento'}}
+	              </p>
+	              <hr>
+	            {{/if}}
+	          	<ul>
+	               <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.like.summary.total_count}}</li>
+			       <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.love.summary.total_count}}</li>
+			       <li><img src="/assets/images/facebook-wow.png" class="fb-reactions"> {{post.wow.summary.total_count}}</li>
+			       <li><img src="/assets/images/facebook-haha.png" class="fb-reactions"> {{post.haha.summary.total_count}}</li>
+			       <li><img src="/assets/images/facebook-sad.png" class="fb-reactions"> {{post.sad.summary.total_count}}</li>
+			       <li><img src="/assets/images/facebook-angry.png" class="fb-reactions"> {{post.angry.summary.total_count}}</li>
+	          	</ul>
+	            <p class="post-type">
+	              {{#if post.comments}}
+	                {{pluralize post.comments.summary.total_count 'comentário'}}
+	              {{/if}}
+	            </p>
+	          </div>
+	        {{/md-card-content}}
+	        {{#md-card-action}}
+	            <ul class="indicators">
 					<li class="indicators-item green">
 						
 					</li>
@@ -28,10 +40,8 @@
 						
 					</li>
 				</ul>
-			</div>
-		</div>
-	</div>
-  </div>
-{{/each}}
-
-{{!-- {{comments-list pageid=page.id posts=page.posts.data reactions=reactions session=session}} --}}
+	        {{/md-card-action}}
+      	{{/md-card}}
+    </div>
+	{{comments-list comments=post.comments.data users=postUsers}}
+</div>

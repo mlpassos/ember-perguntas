@@ -1,0 +1,39 @@
+{{yield}}
+{{!-- {{log 'postUSERS' users}} --}}
+<div class="col l8 comment-box-row">
+{{#if comments}}
+	{{#each comments as |comment|}}
+		<div class="row">
+			<div class="col l12">
+				<div class="comment-box">
+				  	{{#each users as |user|}}
+					  {{user-info comment.id comment.from.id user}} 
+					{{/each}}
+					<div class="comment-box-body">
+						<p>
+							<strong>{{comment.from.name}}</strong>&nbsp;{{comment.message}}
+						</p>
+						  	<img src="/assets/images/facebook-like.png" class="comment-like fb-reactions"> {{comment.like_count}}
+
+					</div>
+					<div class="comment-box-footer">
+						<ul class="indicators">
+							<li class="indicators-item green">
+								
+							</li>
+							<li class="indicators-item yellow">
+								
+							</li>
+							<li class="indicators-item red">
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/each}}
+{{else}}
+	Sem comentários
+{{/if}}
+</div>

@@ -1,17 +1,17 @@
 import Ember from 'ember';
 
-export function userInfo([userId, postUser]) {
+export function userInfo([commentId, userId, postUser]) {
    
 	// NONE, LIKE, LOVE, WOW, HAHA, SAD, ANGRY, THANKFUL
     let out = '';
     // console.log('postUsersInfo', postUsers);
-    console.log('postUsersInfoType', typeof postUser);
+    // console.log('postUsersInfoType', typeof postUser);
   
-   	if (userId === postUser.id) {
-   		console.log('postUsersInfo', postUser);
+   	if (userId === postUser.id && commentId === postUser.commentId) {
+   		// console.log('postUsersInfo', postUser);
 	    out += '<img class="user-info-image" src="'+postUser.picture.data.url+'" alt="imagem do usuário, geralmente mostra o rosto"> ';
     } else {
-    	console.log('NAO ACHEI');
+    	// console.log('NAO ACHEI');
     }
     
    

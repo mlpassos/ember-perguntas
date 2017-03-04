@@ -24,23 +24,31 @@ export default Ember.Route.extend({
     // 					return item;
     // 				}
     // 			});
-			    json.comments.data.map(comment=>{ 
-					getJSON(comment.from.id, tk).then(data=> {
-						_this.get('postUsers').addObject(data);
-					});	
-					// console.log(comment.from.name, comment.from.id);
-				});
+    			if (json.comments) {
+    				json.comments.data.map(comment=>{ 
+    					// console.log('id comentário', comment.id);
+						getJSON(comment.id, comment.from.id, tk).then(data=> {
+							_this.get('postUsers').addObject(data);
+						});
+					});
+    			}
+			    
 				return json;
 		});
 	},
-	getJSON: function(id, tk) {
+	deactivate() {
+		let postUsers =  this.get('postUsers');
+		postUsers.clear();
+	},
+	getJSON: function(commentId, userId, tk) {
 	    return new Promise(function(resolve, reject){
 		    $.get(`http://www.instadev.com.br/facebook-api-wrapper/user_info`, {
 		        access_token: tk,
-		        id: id
+		        id: userId
 		    }).then(item => {
 		        let jsonItem = JSON.parse(item);
-		        console.log('jsonUserInfo', jsonItem);
+		        jsonItem.commentId = commentId;
+		        // console.log('jsonUserInfo', jsonItem);
 		        resolve(jsonItem);
 		    }, function() {
 		        reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
