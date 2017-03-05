@@ -18,21 +18,26 @@ export default Ember.Route.extend({
 		}).then(item => {
 				let json = JSON.parse(item);
 				console.log('jsonPost', json);
-				// let query = "?";
-    // 			json.comments.perguntas = json.comments.data.map(item=> {
-    // 				if (item.message.indexOf(query) !== -1) {
-    // 					return item;
-    // 				}
-    // 			});
-    			if (json.comments) {
-    				json.comments.data.map(comment=>{ 
-    					// console.log('id comentário', comment.id);
-						getJSON(comment.id, comment.from.id, tk).then(data=> {
-							_this.get('postUsers').addObject(data);
-						});
+    			// if (json.comments) {
+    			// 	let query = "?";
+    			// json.comments.perguntas = json.comments.data.map(item=> {
+    				
+    			// });
+    			json.comments.perguntas = [];
+    			json.comments.positivos = [];
+    			let query = "?";
+    			let positivosQuery =  '#Jatene';
+				json.comments.data.map(comment=>{ 
+					if (comment.message.indexOf(query) !== -1) {
+    					json.comments.perguntas.addObject(comment);
+    				}
+    				if (comment.message.indexOf(positivosQuery) !== -1) {
+    					json.comments.positivos.addObject(comment);
+    				}
+					getJSON(comment.id, comment.from.id, tk).then(data=> {
+						_this.get('postUsers').addObject(data);
 					});
-    			}
-			    
+				});
 				return json;
 		});
 	},

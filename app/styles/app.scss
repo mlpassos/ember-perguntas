@@ -52,6 +52,29 @@
   width:30%;
 }
 
+.pergunta {
+  background-color: rgba(240,140,0, .5);
+}
+
+.positivo {
+  background-color: rgba(0,140,0, .5);
+}
+
+// .comment-reply-box {
+//   background-color: #fff;
+// }
+
+.comment-reply-box2 {
+  // background-color:#fff;
+  margin-left: 40px;
+  border-left: 1px solid rgba(0,0,0,.3);
+  // transform: scale3d(.99,.99,.99);
+}
+
+.comment-reply-box2 .comment-box-footer {
+  border-bottom:none;
+}
+
 .comment-box-row {
   // width:98%;
   // margin-left: 18% !important;
@@ -78,7 +101,7 @@
 }
 
 .comment-box {
-  padding: 10px 0 0 0;
+  padding: 10px 0 0 10px;
 }
 
 .comment-box-body {

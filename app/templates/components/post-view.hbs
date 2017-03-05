@@ -1,4 +1,5 @@
 {{yield}}
+{{log 'postModel' post}}
 <div class="row post-row">
 	<div class="col l4">
 		{{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
@@ -43,5 +44,5 @@
 	        {{/md-card-action}}
       	{{/md-card}}
     </div>
-	{{comments-list comments=post.comments.data users=postUsers}}
+	{{comments-list comments=post.comments.data users=postUsers perguntas=post.comments.perguntas positivos=post.comments.positivos replies=false}}
 </div>

@@ -7,16 +7,16 @@ export default Ember.Component.extend({
 		let $el = this.$('.post-card');
 		let position = $el.position();
 		let top = position.top;
-		console.log('first top', top);
-		console.log('first height',  $window.height());
+		// console.log('first top', top);
+		// console.log('first height',  $window.height());
 		$window.scroll(function(){
-			console.log($window.scrollTop());
-			console.log($window.width());
+			// console.log($window.scrollTop());
+			// console.log($window.width());
 			let qtdeScroll = $window.scrollTop();
 			let addToTop = 0;
 	        if (qtdeScroll > 88 && $window.width() > 768){
 	            addToTop = qtdeScroll - 88;
-	            console.log('Add to top', addToTop);
+	            // console.log('Add to top', addToTop);
 	            top = addToTop;
 	            $el.css({
 	            	'top': addToTop + 'px'
@@ -25,14 +25,14 @@ export default Ember.Component.extend({
 	            // , 300, function() {
 	            // 	console.log('ajustado');
 	            // });
-	            console.log('novo top', top);
+	            // console.log('novo top', top);
 	        } else {
 	        	top = 0;
 	        	$el.css({
 	            	'top': top+'px'
 	            	// 'position': 'fixed'
 	            });
-	            console.log('reset top', top);
+	            // console.log('reset top', top);
 	        }
 	    });	
 	}
