@@ -5,10 +5,10 @@
 		{{#if comment.parent}}
 
 		{{else}}
-			<div class="row {{pergunta-class replies perguntas positivos comment.id}}">
+			<div class="row {{pergunta-class perguntas positivos comment.id}}">
 				<div class="col l12">
 				{{!-- {{log 'perguntas-template' comment}} --}}
-					<div class="comment-box comment-reply-box2">
+					<div class="comment-box comment-reply-box">
 					  	{{#each users as |user|}}
 						  {{user-info comment.id comment.from.id user}} 
 						{{/each}}
@@ -21,18 +21,21 @@
 						</div>
 						<div class="comment-box-footer">
 							<ul class="indicators">
-								<li class="indicators-item green">
+								<li class="indicators-item green {{comments-indicators perguntas positivos comment.id}}">
 									
 								</li>
-								<li class="indicators-item yellow">
+								<li class="indicators-item yellow {{comments-indicators perguntas positivos comment.id}}">
 									
 								</li>
-								<li class="indicators-item red">
+								<li class="indicators-item red {{comments-indicators perguntas positivos comment.id}}">
 									
 								</li>
+								{{!-- {{comments-indicators perguntas positivos comment.id}} --}}
 							</ul>
 						</div>
+						<hr>
 					</div>
+
 				</div>
 			</div>
 			{{#if comment.comments}}
@@ -47,7 +50,7 @@
 			{{#if comment.parent}}
 
 			{{else}}
-				<div class="row {{pergunta-class replies perguntas positivos comment.id}}">
+				<div class="row comment-parent {{pergunta-class perguntas positivos comment.id}}">
 					<div class="col l12">
 					{{!-- {{log 'perguntas-template' comment}} --}}
 						<div class="comment-box">
@@ -63,15 +66,13 @@
 							</div>
 							<div class="comment-box-footer">
 								<ul class="indicators">
-									<li class="indicators-item green">
-										
+									<li class="indicators-item green {{comments-indicators perguntas positivos comment.id}}">
 									</li>
-									<li class="indicators-item yellow">
-										
+									<li class="indicators-item yellow {{comments-indicators perguntas positivos comment.id}}">
 									</li>
-									<li class="indicators-item red">
-										
+									<li class="indicators-item red {{comments-indicators perguntas positivos comment.id}}">
 									</li>
+									{{!-- {{comments-indicators perguntas positivos comment.id}} --}}
 								</ul>
 							</div>
 						</div>

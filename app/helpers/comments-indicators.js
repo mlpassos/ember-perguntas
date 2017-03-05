@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function perguntaClass([perguntas, positivos, commentId]) {
+export function commentsIndicators([perguntas, positivos, commentId]) {
     let out = '';
     // console.log('replies', replies);
     // if (replies) {
@@ -14,17 +14,19 @@ export function perguntaClass([perguntas, positivos, commentId]) {
 	    perguntas.map(pergunta=> {
 	   		if (pergunta.id === commentId) {
 	   			console.log('pergunta', perguntas);
-	   			out += ' pergunta';
+	   			// out += '<li class="indicators-item yellow">';
+	   			out += ' pergunta-active';
 		   	} else {
-				out += ' sem-perguntas';
+				out += '';
 			} 
 	    });
 	    positivos.map(positivo=> {
 	   		if (positivo.id === commentId) {
 	   			console.log('positivo', perguntas);
-	   			out += ' positivo';
+	   			// out += '<li class="indicators-item green">';
+	   			out += ' positivo-active';
 		   	} else {
-				out += ' sem-positivo';
+				out += '';
 			} 
 	    });
 	} 
@@ -36,4 +38,4 @@ export function perguntaClass([perguntas, positivos, commentId]) {
    return Ember.String.htmlSafe(out);
 }
 
-export default Ember.Helper.helper(perguntaClass);
+export default Ember.Helper.helper(commentsIndicators);
