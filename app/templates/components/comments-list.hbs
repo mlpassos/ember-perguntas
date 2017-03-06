@@ -5,7 +5,7 @@
 		{{#if comment.parent}}
 
 		{{else}}
-			<div class="row {{pergunta-class perguntas positivos comment.id}}">
+			<div class="row {{pergunta-class perguntas positivos comment.id}} comment-reply">
 				<div class="col l12">
 				{{!-- {{log 'perguntas-template' comment}} --}}
 					<div class="comment-box comment-reply-box">
@@ -33,7 +33,7 @@
 								{{!-- {{comments-indicators perguntas positivos comment.id}} --}}
 							</ul>
 						</div>
-						<hr>
+						{{!-- <hr> --}}
 					</div>
 
 				</div>

@@ -42,6 +42,12 @@
 					</li>
 				</ul>
 	        {{/md-card-action}}
+	        {{#md-card-action}}
+				{{!-- {{link-to "Seguir" "analytics.follow.add" post.id}}
+				{{link-to "Gravar" "analytics.record.add" post.id}} --}}
+				<a href="#" {{action "followPost" post}}>Seguir</a>
+				<a href="#" {{action "recordPost" post}}>Gravar</a>
+	        {{/md-card-action}}
       	{{/md-card}}
     </div>
 	{{comments-list comments=post.comments.data users=postUsers perguntas=post.comments.perguntas positivos=post.comments.positivos replies=false}}

@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="row">
+	  <div class="col l12 m12 s12">
+	  	{{#if session.isAuthenticated}}
+	  		{{link-to "Following" "analytics.following"}} | 
+	  		{{link-to "Recording" "analytics.recording"}}
+	    {{else}}
+	    	Você precisa estar logado para ver as notícias
+	    {{/if}}
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col l12 m12 s12">
+	  	{{outlet}}
+	  </div>
+	</div>
+</div>

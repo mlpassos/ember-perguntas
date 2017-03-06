@@ -52,6 +52,11 @@
   width:30%;
 }
 
+.comment-reply {
+  margin-top: -18px;
+  padding:5px 0;
+}
+
 .pergunta {
   background-color: rgba(240,140,0, .5);
 }
@@ -133,7 +138,7 @@
   // width: 60%;
   // overflow:hidden;
   // background-color: green;
-  margin-top:-18px;
+  // margin-top:-18px;
   margin-left:45px;
   overflow:scroll;
 }

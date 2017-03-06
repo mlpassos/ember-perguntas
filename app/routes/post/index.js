@@ -2,38 +2,37 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	postUsers: [],
-	model(params) {
+	model() {
 		console.log('POST PAGE');
 		var tk  = this.get('session.accessToken');
 		let _this = this;
 		// console.log(tk);
-		// let pageid = Ember.get(this.modelFor('page'), 'pageid');
-		let postid = params.postid;
+		let postId = Ember.get(this.modelFor('post'), 'postid');
+		// let postid = params.postid;
 		let userid = this.get('session.userId');
-		// console.log(pageid, postid);
+		// console.log(postid);
 		var getJSON = this.get('getJSON');
 		return $.get(`http://www.instadev.com.br/facebook-api-wrapper/post`, {
 			access_token: tk,
-			id: postid
+			id: postId
 		}).then(item => {
 				let json = JSON.parse(item);
 				console.log('jsonPost', json);
-    			// if (json.comments) {
-    			// 	let query = "?";
-    			// json.comments.perguntas = json.comments.data.map(item=> {
-    				
-    			// });
     			json.comments.perguntas = [];
     			json.comments.positivos = [];
-    			let query = "?";
-    			let positivosQuery =  '#Jatene';
+    			let perguntasQuery = "?";
+    			let positivosQuery =  ['#Jatene', 'Parabéns', 'Muito legal'];
 				json.comments.data.map(comment=>{ 
-					if (comment.message.indexOf(query) !== -1) {
+					if (comment.message.indexOf(perguntasQuery) !== -1) {
     					json.comments.perguntas.addObject(comment);
     				}
-    				if (comment.message.indexOf(positivosQuery) !== -1) {
-    					json.comments.positivos.addObject(comment);
-    				}
+    				positivosQuery.map(query=> {
+    					console.log('positivoQuery', query);
+    					if (comment.message.indexOf(query) !== -1) {
+	    					json.comments.positivos.addObject(comment);
+	    				}
+    				});
+    				
 					getJSON(comment.id, comment.from.id, tk).then(data=> {
 						_this.get('postUsers').addObject(data);
 					});
@@ -63,5 +62,16 @@ export default Ember.Route.extend({
 	setupController(controller) {
 		this._super(...arguments);
 		controller.set('postUsers', this.get('postUsers'));
+	},
+	actions: {
+		followPost(post) {
+			alert('Seguindo ' + post.id);
+			console.log('follow', post);
+			let newPost = this.store.createRecord('post', post);
+			newPost.save();
+		},
+		recordPost(post) {
+			alert('Gravando ' + post.id);
+		}
 	}
 });

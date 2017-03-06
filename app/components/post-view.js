@@ -35,5 +35,13 @@ export default Ember.Component.extend({
 	            // console.log('reset top', top);
 	        }
 	    });	
+	},
+	actions: {
+		followPost(post) {
+			this.sendAction('on-follow', post);
+		},
+		recordPost(post) {
+			this.sendAction('on-record', post);
+		}
 	}
 });

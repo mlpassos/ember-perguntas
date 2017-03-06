@@ -41,8 +41,13 @@ Router.map(function() {
   });
   this.route('admin');
   this.route('pages');
-  this.route('page', {path: 'page/:pageid'}, function() {
-    this.route('post', {path: 'post/:postid'});
+  this.route('page', {path: 'page/:pageid'}, function() {});
+  this.route('analytics', function() {
+    this.route('following');
+    this.route('recording');
+  });
+  this.route('post', {path: 'post/:postid'}, function() {
+    
   });
 });
 
