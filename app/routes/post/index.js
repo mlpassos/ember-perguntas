@@ -65,10 +65,33 @@ export default Ember.Route.extend({
 	},
 	actions: {
 		followPost(post) {
-			alert('Seguindo ' + post.id);
-			console.log('follow', post);
+			let _this = this;
+			console.log('followantes', post);
+			var comments = {...post.comments};
+			delete post.comments;
+			// post.comments
+			console.log('followdepois', post);
+			console.log('comments', comments);
 			let newPost = this.store.createRecord('post', post);
-			newPost.save();
+			newPost.set('comments', []);
+			comments.data.map(comentario=> {
+				console.log('map');
+				if ( !comentario.parent ) { 
+					comentario.parent = [];
+				}
+				let comment = _this.store.createRecord('comment', comentario);
+				newPost.get('comments').pushObject(comment);
+				comment.save().then(function() {
+					console.log('salvou comment');
+					newPost.save().then(function() {
+						console.log('salvou post');	
+					}, function(error) {
+						console.log('erro post', error.message);
+					});
+				}, function(error) {
+					console.log('erro', error);
+				});
+			});	
 		},
 		recordPost(post) {
 			alert('Gravando ' + post.id);

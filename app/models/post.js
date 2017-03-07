@@ -7,7 +7,14 @@ export default DS.Model.extend({
 	type: attr('string'),
 	full_picture: attr(),
 	shares: attr(),
-	created_time: attr('date')
+	created_time: attr('string'),
+	angry: attr(),
+	haha: attr(),
+	like: attr(),
+	love: attr(),
+	sad: attr(),
+	wow: attr(),
+	comments: DS.hasMany('comment')
 	//,
 	// categories: DS.hasMany('category'),
 	// tags: DS.hasMany('tag'),
