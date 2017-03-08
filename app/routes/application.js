@@ -12,7 +12,7 @@ export default TransitionToListenerRoute.extend({
 	},
 	actions:{
 	    login(){
-	    	let _this = this;
+	    	// let _this = this;
 	        get(this,'session').open('facebook-connect').then(function(authorization) {
 	            // console.log(data);
 	            // let access_token = authorization.accessToken;
