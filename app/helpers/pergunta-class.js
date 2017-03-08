@@ -13,7 +13,7 @@ export function perguntaClass([perguntas, positivos, commentId]) {
     if (perguntas) {
 	    perguntas.map(pergunta=> {
 	   		if (pergunta.id === commentId) {
-	   			console.log('pergunta', perguntas);
+	   			// console.log('pergunta', perguntas);
 	   			out += ' pergunta';
 		   	} else {
 				out += ' sem-perguntas';
@@ -21,7 +21,7 @@ export function perguntaClass([perguntas, positivos, commentId]) {
 	    });
 	    positivos.map(positivo=> {
 	   		if (positivo.id === commentId) {
-	   			console.log('positivo', perguntas);
+	   			// console.log('positivo', perguntas);
 	   			out += ' positivo';
 		   	} else {
 				out += ' sem-positivo';

@@ -13,7 +13,7 @@ export function commentsIndicators([perguntas, positivos, commentId]) {
     if (perguntas) {
 	    perguntas.map(pergunta=> {
 	   		if (pergunta.id === commentId) {
-	   			console.log('pergunta', perguntas);
+	   			// console.log('pergunta', perguntas);
 	   			// out += '<li class="indicators-item yellow">';
 	   			out += ' pergunta-active';
 		   	} else {
@@ -22,7 +22,7 @@ export function commentsIndicators([perguntas, positivos, commentId]) {
 	    });
 	    positivos.map(positivo=> {
 	   		if (positivo.id === commentId) {
-	   			console.log('positivo', perguntas);
+	   			// console.log('positivo', perguntas);
 	   			// out += '<li class="indicators-item green">';
 	   			out += ' positivo-active';
 		   	} else {

@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 	  	{{#if session.isAuthenticated}}
-	  		{{post-view post=model postUsers=postUsers session=session on-follow="followPost" on-record="recordPost"}}
+	  		{{post-view post=model postUsers=postUsers session=session on-follow="followPost" on-record="recordPost" isFollowing=isFollowing}}
 	    {{else}}
 	    	Você precisa estar logado para ver as notícias
 	    {{/if}}

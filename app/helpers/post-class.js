@@ -18,6 +18,9 @@ export function postClass([type]) {
 	    case 'offer':
 	        strClass = '<i class="fa fa-home offer"></i> ' + type;
 	        break;
+	    case 'event':
+	        strClass = '<i class="fa fa-calendar event"></i> ' + type;
+	        break;
 	    default:
 			console.log('post sem tipo');
 	}
