@@ -9,10 +9,9 @@ export default Ember.Route.extend({
 		let id = Ember.get(this.modelFor('page'), 'pageid');
 		console.log(id);
 		var _this = this;
-		let count = 0;
 		var getJSON = this.get('getJSON');
 
-	        return $.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
+	        return Ember.$.get(`http://www.instadev.com.br/facebook-api-wrapper/page`, {
 				access_token: tk,
 				id: id
 			}).then(item => {
@@ -35,16 +34,17 @@ export default Ember.Route.extend({
 		controller.set('reactions', this.get('reactions'));
 	},
 	getJSON: function(id, tk) {
-	    return new Promise(function(resolve, reject){
-		    $.get(`http://www.instadev.com.br/facebook-api-wrapper/post_reactions_count`, {
+	    var promise = new Ember.RSVP.Promise(function(resolve, reject){
+		    Ember.$.get(`http://www.instadev.com.br/facebook-api-wrapper/post_reactions_count`, {
 		        access_token: tk,
 		        id: id
-		    }).then(item => {
+			}).then(item => {
 		        let jsonItem = JSON.parse(item);
 		        resolve(jsonItem);
 		    }, function() {
-		        reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+		        reject(new Error('getJSON: `' + id + '` failed with status: [' + this.status + ']'));
 		    });
-	    });
+		});
+		return promise;
 	}
 });

@@ -6,7 +6,7 @@ export default ToriiFirebaseAdapter.extend({
   open: function(authorization) {
   	console.log('auth', authorization);
   	let tk  = authorization.accessToken;
-	return $.get('http://www.instadev.com.br/facebook-api-wrapper/user/',  {access_token: tk}).then(function(user) {
+	return Ember.$.get('http://www.instadev.com.br/facebook-api-wrapper/user/',  {access_token: tk}).then(function(user) {
 		let jsonUser = JSON.parse(user);
 
 		jsonUser.accessToken = authorization.accessToken;

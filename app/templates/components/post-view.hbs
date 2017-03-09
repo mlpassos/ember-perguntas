@@ -14,7 +14,8 @@
 	              </p>
 	              <hr>
 	            {{/if}}
-	            isFollowing: {{isFollowing}}
+	            {{!-- {{log 'isFollowingTemplate' isFollowing}} --}}
+	            isFollowing: {{following}}
 	          	<ul>
 	               <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.like.summary.total_count}}</li>
 			       <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.love.summary.total_count}}</li>

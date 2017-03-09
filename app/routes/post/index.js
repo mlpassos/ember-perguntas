@@ -2,17 +2,36 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	postUsers: [],
+	following: false,
 	isFollowing: Ember.computed('modelo', function() {
 	    // return this.get('modelo').map(function(modelo, index) {
 	    //   return `MODEL ${index}: ${modelo.toUpperCase()}!`;
 	    // });
-	    // console.log('computed model', this.get('modelo'));
-	    // let model = this.get('modelo');
-	    // let out = this.get('store').findRecord('post', model.id).then(post=> {
-	    // 	return post;
-	    // });
-	    // console.log('out', out);
-	    return true;
+	    console.log('computed model', this.get('modelo'));
+	    let store = this.get('store');
+	    let model = this.get('modelo');
+	    let _this = this;
+	    var out = new Ember.RSVP.Promise(function(resolve, reject) {
+	    	store.findRecord('post', model.id).then(post=> {
+	    		console.log('Achou post. isFollowing');
+	    		_this.set('following', true);
+	    		console.log('flw', _this.get('following'));
+		    	resolve(post);
+		    }, error=> {
+		    	reject('erro na computed property ' + error);
+		    });
+		});
+		console.log('out', out);
+		return out.then(function(post) {
+			if (post.get('id')) {
+				console.log('ja eh seguido retorna true');
+				return true;
+			} else {
+				return false;
+			}
+		});
+	    // console.log('out', this.get('store'));
+	    // return model.id;
 	}),
 	modelo: null,
 	model() {
@@ -22,10 +41,10 @@ export default Ember.Route.extend({
 		// console.log(tk);
 		let postId = Ember.get(this.modelFor('post'), 'postid');
 		// let postid = params.postid;
-		let userid = this.get('session.userId');
+		// let userid = this.get('session.userId');
 		// console.log(postid);
 		var getJSON = this.get('getJSON');
-		return $.get(`http://www.instadev.com.br/facebook-api-wrapper/post`, {
+		return Ember.$.get(`http://www.instadev.com.br/facebook-api-wrapper/post`, {
 			access_token: tk,
 			id: postId
 		}).then(item => {
@@ -65,8 +84,8 @@ export default Ember.Route.extend({
 		postUsers.clear();
 	},
 	getJSON: function(commentId, userId, tk) {
-	    return new Promise(function(resolve, reject){
-		    $.get(`http://www.instadev.com.br/facebook-api-wrapper/user_info`, {
+	    var promise =  new Ember.RSVP.Promise(function(resolve, reject){
+		    Ember.$.get(`http://www.instadev.com.br/facebook-api-wrapper/user_info`, {
 		        access_token: tk,
 		        id: userId
 		    }).then(item => {
@@ -75,110 +94,89 @@ export default Ember.Route.extend({
 		        // console.log('jsonUserInfo', jsonItem);
 		        resolve(jsonItem);
 		    }, function() {
-		        reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+		        reject(new Error('getJSON: `' + commentId + '` failed with status: [' + this.status + ']'));
 		    });
 	    });
+	    return promise;
 	},
 	setupController(controller) {
 		this._super(...arguments);
 		controller.set('postUsers', this.get('postUsers'));
 		controller.set('isFollowing', this.get('isFollowing'));
+		controller.set('following', this.get('following'));
 	},
 	actions: {
 		followPost(post) {
 			let _this = this;
-			// console.log('followantes', post);
-
-			var summary = {...post.comments.summary};
-			var comments = {...post.comments};
-			// post.summary 
+			let summary = JSON.parse(JSON.stringify(post.comments.summary));
+			let comments = JSON.parse(JSON.stringify(post.comments));
 			delete post.comments;
-			// post.set('comments_count') = comments_count;
 			post.summary = summary;
-			// post.comments = post.comments.data;
-			// post.comments
-			// console.log('followdepois', post);
-			// console.log('summary', summary);
-			// // debugger;
 			
 			if (!post.shares) {
 				console.log('sem shares');
 				post.shares = {
 					count: 0
-				}
+				};
 			}
 
 			console.log('followantes', post);
 			let newPost = this.store.createRecord('post', post);
 			newPost.set('comments', []);
-			// newPost.get('summary').pushObject(summary);
-			// console.log('newPost', newPost.get('description'));
-			// newPost.set('comments_count', comments_count);
 			var promises = [];
 			comments.data.map(comentario=> {
 				let currentdate = new Date(); 
-				let datetime = "Last Sync: " + currentdate.getDate() + "/"
-				                + (currentdate.getMonth()+1)  + "/" 
-				                + currentdate.getFullYear() + " @ "  
-				                + currentdate.getHours() + ":"  
-				                + currentdate.getMinutes() + ":" 
-				                + currentdate.getSeconds();
+				let datetime = "Last Sync: " + currentdate.getDate() + "/" +
+				                (currentdate.getMonth()+1)  + "/"  +
+				                currentdate.getFullYear() + " @ "   +
+				                currentdate.getHours() + ":"  +
+				                currentdate.getMinutes() + ":"  +
+				                currentdate.getSeconds();
 				console.log('map: ' + datetime);
 
 				if ( !comentario.parent ) { 
 					comentario.parent = [];
 				}
-				// if ( !comentario.parent ) { 
-				// comentario.description = 'SEM DESCRIÇÃO';
-				// }
-				// comentario.bug = 'bug';
 				let comment = _this.store.createRecord('comment', comentario);
 				newPost.get('comments').pushObject(comment);
-				
-
-				  	promises.pushObject(new Promise(function(resolve, reject){
-					    comment.save().then(function() {
-							// console.log('salvou comment: ' + comment.get('message'));
-							resolve('success');
-							
-						}, function(error) {
-							reject(new Error('getJSON: `' + comment.get('message') + '` failed with status: [' + this.status + ']'));
-						});
-			    	}));
-
-				// comment.save().then(function() {
-				// 	console.log('salvou comment: ' + comment.get('message'));
-				// 	newPost.save().then(function() {
-				// 		console.log('salvou post: ' + newPost.get('message'));	
-				// 	}, function(error, msg) {
-				// 		console.log('erro post: ' + newPost.get('message'));
-				// 	});
-				// }, function(error) {
-				// 	console.log('erro comentário: ' + comment.get('message'));
-				// });
+			  	promises.pushObject(new Ember.RSVP.Promise(function(resolve, reject){
+				    comment.save().then(function() {
+						// console.log('salvou comment: ' + comment.get('message'));
+						resolve('success');
+						
+					}, function() {
+						reject(new Error('getJSON: `' + comment.get('message') + '` failed with status: [' + this.status + ']'));
+					});
+		    	}));
 			});
-			Promise.all([
+			Ember.RSVP.allSettled([
 			  promises	
 			]).then(function(values){
-			  //values[0] // => postsJSON
-			  //values[1] // => commentsJSON
-			  console.log('values', values);
+			  // console.log('values', values[0]);
+			  // var mapFn = function(item){
+			  // 	console.log(item);
+			  //   return item === 'success';
+			  // };
+			  // Ember.RSVP.map(values[0].value, mapFn).then(function(result){
+			  // 	console.log('resultadoPromise', result);
+			  // });
 			  newPost.save().then(function() {
 				  console.log('salvou post');	
-			  }, function(error, msg) {
+			  }, function(error) {
 				  console.log('erro post', error);
 				  // console.log('status post', this.status);
 			  });
 			}, function(error) {
+					alert('Erro ao seguir post');
 					console.log('erro gravando comentário: ' + error);
 			});
-			var currentdate = new Date(); 
-			var datetime = "Last Sync: " + currentdate.getDate() + "/"
-			                + (currentdate.getMonth()+1)  + "/" 
-			                + currentdate.getFullYear() + " @ "  
-			                + currentdate.getHours() + ":"  
-			                + currentdate.getMinutes() + ":" 
-			                + currentdate.getSeconds();	
+			let currentdate = new Date(); 
+			let datetime = "Last Sync: " + currentdate.getDate() + "/" +
+			                (currentdate.getMonth()+1)  + "/" + 
+			                currentdate.getFullYear() + " @ " +  
+			                currentdate.getHours() + ":" +  
+			                currentdate.getMinutes() + ":" + 
+			                currentdate.getSeconds();	
 			console.log('map depois: ' + datetime);
 		},
 		recordPost(post) {

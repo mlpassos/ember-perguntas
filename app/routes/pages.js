@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 	model() {
 		let tk  = this.get('session.accessToken');
-		return $.get(`http://www.instadev.com.br/facebook-api-wrapper/pages`, {
+		return Ember.$.get(`http://www.instadev.com.br/facebook-api-wrapper/pages`, {
 			access_token: tk
 		}).then(item => {
 			let jsonItem = JSON.parse(item);
