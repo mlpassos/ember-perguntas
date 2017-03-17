@@ -14,8 +14,15 @@
 	              </p>
 	              <hr>
 	            {{/if}}
-	            {{!-- {{log 'isFollowingTemplate' isFollowing}} --}}
-	            isFollowing: {{following}}
+	            {{!-- isFollowing: 
+				{{#if isFollowing.isPending}}
+				  carregando...
+				  {{else}}
+				  {{#each isFollowing as |item|}}
+	              	{{item.status}}
+	              {{/each}}
+				{{/if}} --}}
+	            
 	          	<ul>
 	               <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.like.summary.total_count}}</li>
 			       <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.love.summary.total_count}}</li>
@@ -47,7 +54,13 @@
 	        {{#md-card-action}}
 				{{!-- {{link-to "Seguir" "analytics.follow.add" post.id}}
 				{{link-to "Gravar" "analytics.record.add" post.id}} --}}
-				<a href="#" {{action "followPost" post}}>Seguir</a>
+				{{#each isFollowing as |item|}}
+	              {{#if item.status}}
+				  	<a href="#" {{action "followPost" post}}>Esquecer</a>
+				  {{else}}  
+				  	<a href="#" {{action "followPost" post}}>Seguir</a>
+				  {{/if}}
+	            {{/each}}
 				<a href="#" {{action "recordPost" post}}>Gravar</a>
 	        {{/md-card-action}}
       	{{/md-card}}

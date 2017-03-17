@@ -17,7 +17,7 @@ export default DS.Model.extend({
 	love: attr(),
 	sad: attr(),
 	wow: attr(),
-	comments: DS.hasMany('comment'),
+	comments: DS.hasMany('comment', {async: true}),
 	summary: attr()
 	// ,
 	// comments_count: Ember.computed('comment', function() {

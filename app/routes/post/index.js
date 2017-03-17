@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	postUsers: [],
-	following: false,
+	// following: false,
 	isFollowing: Ember.computed('modelo', function() {
 	    // return this.get('modelo').map(function(modelo, index) {
 	    //   return `MODEL ${index}: ${modelo.toUpperCase()}!`;
@@ -14,21 +14,41 @@ export default Ember.Route.extend({
 	    var out = new Ember.RSVP.Promise(function(resolve, reject) {
 	    	store.findRecord('post', model.id).then(post=> {
 	    		console.log('Achou post. isFollowing');
-	    		_this.set('following', true);
-	    		console.log('flw', _this.get('following'));
+	    		// _this.set('following', true);
+	    		// console.log('flw', _this.get('following'));
 		    	resolve(post);
 		    }, error=> {
-		    	reject('erro na computed property ' + error);
+		    	// _this.set('following', false);
+		    	reject(false);
 		    });
 		});
 		console.log('out', out);
-		return out.then(function(post) {
-			if (post.get('id')) {
-				console.log('ja eh seguido retorna true');
-				return true;
-			} else {
-				return false;
-			}
+		// return out.then(function(post) {
+		// 	if (post.get('id')) {
+		// 		console.log('ja eh seguido retorna true');
+		// 		return true;
+		// 	} else {
+		// 		console.log('nao eh seguido retorna false');
+		// 		return false;
+		// 	}
+		// });
+		// let ObjectPromiseProxy = Ember.ObjectProxy.extend(Ember.PromiseProxyMixin);
+		return DS.PromiseArray.create({
+        	promise: out.then(function(post) {
+				if (post.get('id')) {
+					console.log('ja eh seguido retorna true');
+					// _this.set('following', true);
+					return [{status:true}];
+				} else {
+					console.log('nao eh seguido retorna false');
+					// _this.set('following', false);
+					return [{status:false}];
+				}
+			}, function() {
+				console.log('rejected');
+				// _this.set('following', false);
+				return [{status:false}];
+			})
 		});
 	    // console.log('out', this.get('store'));
 	    // return model.id;
@@ -82,6 +102,7 @@ export default Ember.Route.extend({
 	deactivate() {
 		let postUsers =  this.get('postUsers');
 		postUsers.clear();
+		// this.set('following', false);
 	},
 	getJSON: function(commentId, userId, tk) {
 	    var promise =  new Ember.RSVP.Promise(function(resolve, reject){
@@ -103,7 +124,7 @@ export default Ember.Route.extend({
 		this._super(...arguments);
 		controller.set('postUsers', this.get('postUsers'));
 		controller.set('isFollowing', this.get('isFollowing'));
-		controller.set('following', this.get('following'));
+		// controller.set('following', this.get('following'));
 	},
 	actions: {
 		followPost(post) {
@@ -161,7 +182,8 @@ export default Ember.Route.extend({
 			  // 	console.log('resultadoPromise', result);
 			  // });
 			  newPost.save().then(function() {
-				  console.log('salvou post');	
+				  console.log('salvou post');
+				  // _this.set('following', true);
 			  }, function(error) {
 				  console.log('erro post', error);
 				  // console.log('status post', this.status);

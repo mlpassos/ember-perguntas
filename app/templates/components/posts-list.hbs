@@ -1,5 +1,6 @@
 {{yield}}
 <div class="row isogrid">
+  {{log 'updatedPostsTemplate' updatedPosts}}
   {{#each posts as |post|}}
   	<div class="col l4 m4 s12 isoitem">
       {{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
@@ -8,6 +9,9 @@
           {{substr post.message size=40}}
           <hr>
           <div class="post-meta-box">
+            {{!-- {{#each updatedPosts as |updatedPost|}}
+              {{updatedPost.shares.count}} <br>
+            {{/each}} --}}
             {{#if post.shares.count}}
               <p>
                 {{pluralize post.shares.count 'compartilhamento'}}
@@ -15,15 +19,33 @@
               <hr>
             {{/if}}
           	<ul>
-              {{#each reactions as |reaction|}}
-                {{post-reactions post.id reaction}}
-              {{/each}}
+              {{#if reactions}}
+                {{#each reactions as |reaction|}}
+                  {{post-reactions post.id reaction}}
+                {{/each}}  
+              {{/if}}
           	</ul>
             <p class="post-type">
-              {{#if post.comments}}
+              {{#if post.comments.summary.total_count}}
                 {{pluralize post.comments.summary.total_count 'comentário'}}
               {{/if}}
+              {{!-- {{#each post.comments as |item|}}
+                comentario {{item}} <br>
+              {{/each}} --}}
+              {{#if post.summary.total_count}}
+                {{pluralize post.summary.total_count 'comentário'}}
+              {{/if}}
             </p>
+            <p>
+              {{!-- {{log 'following' following}} --}}
+              {{!-- segue: {{post-isfollowing post.id following}} --}}
+              {{#if following}}
+                {{#each following as |item|}}
+                  {{post-isfollowing post.id item.id}}
+                {{/each}}  
+              {{/if}}
+            </p>
+            
           </div>
         {{/md-card-content}}
         {{#md-card-action}}
