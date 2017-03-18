@@ -2,46 +2,72 @@
 <div class="row isogrid">
   {{log 'updatedPostsTemplate' updatedPosts}}
   {{#each posts as |post|}}
-  	<div class="col l4 m4 s12 isoitem">
+  	<div class="col l3 m4 s12 isoitem">
       {{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
       image=post.full_picture}}
         {{#md-card-content}}
           {{substr post.message size=40}}
           <hr>
           <div class="post-meta-box">
-            {{!-- {{#each updatedPosts as |updatedPost|}}
-              {{updatedPost.shares.count}} <br>
-            {{/each}} --}}
+            {{#each updatedPosts as |updatedPost|}}
+              {{#if (eq post.id updatedPost.id)}}
+                {{md-badge class=(compare-posts post updatedPost "shares" true) text=(compare-posts post updatedPost 'shares' false)}}
+              {{/if}}
+            {{else}}
+              {{!-- sem updated posts <br> --}}
+            {{/each}}
+            <p>
             {{#if post.shares.count}}
-              <p>
                 {{pluralize post.shares.count 'compartilhamento'}}
-              </p>
-              <hr>
+            {{else}}
+                {{pluralize 0 'compartilhamento'}}
             {{/if}}
-          	<ul>
+              <hr>
+            </p>
+              {{!-- <ul>
+                  <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.like.summary.total_count}} </li>
+                  <li><img src="/assets/images/facebook-love.png" class="fb-reactions"> {{post.love.summary.total_count}} </li>
+                  <li><img src="/assets/images/facebook-wow.png" class="fb-reactions"> {{post.wow.summary.total_count}} </li>
+                  <li><img src="/assets/images/facebook-haha.png" class="fb-reactions"> {{post.haha.summary.total_count}} </li>
+                  <li><img src="/assets/images/facebook-Sad.png" class="fb-reactions"> {{post.sad.summary.total_count}} </li>
+                  <li><img src="/assets/images/facebook-angry.png" class="fb-reactions"> {{post.angry.summary.total_count}} </li>
+              </ul><hr> --}}
               {{#if reactions}}
+                {{!-- <ul> --}}
                 {{#each reactions as |reaction|}}
-                  {{post-reactions post.id reaction}}
-                {{/each}}  
+                  {{post-reactions post.id reaction false}}
+                  {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}}
+                {{/each}}
+                {{!-- </ul> --}}
               {{/if}}
-          	</ul>
-            <p class="post-type">
-              {{#if post.comments.summary.total_count}}
-                {{pluralize post.comments.summary.total_count 'comentário'}}
-              {{/if}}
-              {{!-- {{#each post.comments as |item|}}
-                comentario {{item}} <br>
-              {{/each}} --}}
-              {{#if post.summary.total_count}}
-                {{pluralize post.summary.total_count 'comentário'}}
-              {{/if}}
+              {{!-- {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}} --}}
+              
+            <p>
+              {{#each updatedPosts as |updatedPost|}}
+                {{#if (eq post.id updatedPost.id)}}
+                  {{!-- {{#if updatedPost.summary.total_count}} --}}
+                    {{pluralize updatedPost.comments.summary.total_count 'comentário'}}
+                  {{!-- {{/if}} --}}
+                  {{md-badge class=(compare-posts post updatedPost "comments" true)  text=(compare-posts post updatedPost 'comments' false)}}
+                {{/if}}
+              {{else}}
+                <p>
+                  {{#if post.comments.summary.total_count}}
+                    {{pluralize post.comments.summary.total_count 'comentário'}}
+                  {{/if}}
+                </p>
+              {{/each}}
+              {{!-- <p>
+                {{log 'post-summary' post.summary}}
+              </p> --}}
+              <hr>
             </p>
             <p>
               {{!-- {{log 'following' following}} --}}
               {{!-- segue: {{post-isfollowing post.id following}} --}}
               {{#if following}}
                 {{#each following as |item|}}
-                  {{post-isfollowing post.id item.id}}
+                  {{md-badge class='deep-purple white-text' text=(post-isfollowing post.id item.id)}}
                 {{/each}}  
               {{/if}}
             </p>

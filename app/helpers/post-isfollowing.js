@@ -5,8 +5,8 @@ export function postIsfollowing([postid, following]) {
    // console.log('flwhelper', following);
    // following.map(data=> {
    	 if (postid === following) {
-   	 	out = 'seguindo';
-   	 }
+   	 	out = 'SEGUINDO';
+   	 } 
    // });
 
    return Ember.String.htmlSafe(out);
