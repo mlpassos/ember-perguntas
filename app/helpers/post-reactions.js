@@ -28,9 +28,9 @@ export function postReactions([postId, reaction, compare, like, love, wow, haha,
     function addReaction(type, atual, original) {
       let diff = atual - original;
       if (diff > 0 || diff < 0) {
-        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"> ' + (diff) + '</li>';  
+        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions anima" data-animated="false" data-animate-to=' + atual + '><span> ' + (original) + '</span></li>';  
       } else  {
-        return '';
+        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"> ' + (diff) + '</li>';
       }
     }  
     // console.log('compare', compare);
@@ -44,9 +44,9 @@ export function postReactions([postId, reaction, compare, like, love, wow, haha,
          '<li><img src="/assets/images/facebook-sad.png" class="fb-reactions"> ' + reaction.sad.summary.total_count + '</li>' +
          '<li><img src="/assets/images/facebook-angry.png" class="fb-reactions"> ' + reaction.angry.summary.total_count + '</li>';
       } else {
-        console.log('compare', compare);
-        console.log('like', like);
-        console.log('reaction', reaction);
+        // console.log('compare', compare);
+        // console.log('like', like);
+        // console.log('reaction', reaction);
         // out += '<li><img src="/assets/images/facebook-like.png" class="fb-reactions"> ' + (reaction.like.summary.total_count - like) + '</li>' +
         //  '<li><img src="/assets/images/facebook-love.png" class="fb-reactions"> ' + (reaction.love.summary.total_count - love) + '</li>' +
         //  '<li><img src="/assets/images/facebook-wow.png" class="fb-reactions"> ' + (reaction.wow.summary.total_count - wow) + '</li>' +
@@ -54,17 +54,13 @@ export function postReactions([postId, reaction, compare, like, love, wow, haha,
         //  '<li><img src="/assets/images/facebook-sad.png" class="fb-reactions"> ' + (reaction.sad.summary.total_count - sad) + '</li>' +
         //  '<li><img src="/assets/images/facebook-angry.png" class="fb-reactions"> ' + (reaction.angry.summary.total_count - angry) + '</li>';
         reactionsArray.map(item=> {
-          console.log('total', reaction[item.reaction].summary.total_count);//reaction.item.summary.total_count);
+          // console.log('total', reaction[item.reaction].summary.total_count);//reaction.item.summary.total_count);
           out += addReaction(item.reaction, reaction[item.reaction].summary.total_count, item.value);
-        });
-        
+        });        
       }
       out += '</ul><hr>';
     }
-    
-   
-   return Ember.String.htmlSafe(out);
-   
+   return Ember.String.htmlSafe(out);  
 }
 
 export default Ember.Helper.helper(postReactions);

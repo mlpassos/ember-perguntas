@@ -1,8 +1,8 @@
 {{yield}}
 <div class="row isogrid">
-  {{log 'updatedPostsTemplate' updatedPosts}}
+  {{!--{{log 'updatedPostsTemplate' updatedPosts}}--}}
   {{#each posts as |post|}}
-  	<div class="col l3 m4 s12 isoitem">
+  	<div class="col l4 m4 s12 isoitem">
       {{#md-card title=(post-class post.type) titleClass="post-title blue-text" 
       image=post.full_picture}}
         {{#md-card-content}}
@@ -17,14 +17,13 @@
               {{!-- sem updated posts <br> --}}
             {{/each}}
             <p>
-            {{#if post.shares.count}}
-                {{pluralize post.shares.count 'compartilhamento'}}
-            {{else}}
-                {{pluralize 0 'compartilhamento'}}
-            {{/if}}
+              {{#if post.shares.count}}
+                  {{pluralize post.shares.count 'compartilhamento'}}
+              {{else}}
+                  {{pluralize 0 'compartilhamento'}}
+              {{/if}}
               <hr>
-            </p>
-              {{!-- <ul>
+                {{!--<ul>
                   <li><img src="/assets/images/facebook-like.png" class="fb-reactions"> {{post.like.summary.total_count}} </li>
                   <li><img src="/assets/images/facebook-love.png" class="fb-reactions"> {{post.love.summary.total_count}} </li>
                   <li><img src="/assets/images/facebook-wow.png" class="fb-reactions"> {{post.wow.summary.total_count}} </li>
@@ -32,16 +31,15 @@
                   <li><img src="/assets/images/facebook-Sad.png" class="fb-reactions"> {{post.sad.summary.total_count}} </li>
                   <li><img src="/assets/images/facebook-angry.png" class="fb-reactions"> {{post.angry.summary.total_count}} </li>
               </ul><hr> --}}
+            </p>
               {{#if reactions}}
-                {{!-- <ul> --}}
                 {{#each reactions as |reaction|}}
                   {{post-reactions post.id reaction false}}
-                  {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}}
+                  {{!--{{#if updatedPosts}}
+                    {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}}
+                  {{/if}}--}}
                 {{/each}}
-                {{!-- </ul> --}}
-              {{/if}}
-              {{!-- {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}} --}}
-              
+              {{/if}}              
             <p>
               {{#each updatedPosts as |updatedPost|}}
                 {{#if (eq post.id updatedPost.id)}}
@@ -54,24 +52,20 @@
                 <p>
                   {{#if post.comments.summary.total_count}}
                     {{pluralize post.comments.summary.total_count 'comentário'}}
+                  {{else}}
+                    {{pluralize 0 'comentário'}}
                   {{/if}}
                 </p>
               {{/each}}
-              {{!-- <p>
-                {{log 'post-summary' post.summary}}
-              </p> --}}
               <hr>
             </p>
             <p>
-              {{!-- {{log 'following' following}} --}}
-              {{!-- segue: {{post-isfollowing post.id following}} --}}
               {{#if following}}
                 {{#each following as |item|}}
                   {{md-badge class='deep-purple white-text' text=(post-isfollowing post.id item.id)}}
                 {{/each}}  
               {{/if}}
             </p>
-            
           </div>
         {{/md-card-content}}
         {{#md-card-action}}

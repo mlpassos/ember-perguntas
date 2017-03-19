@@ -28,7 +28,7 @@ export default Ember.Route.extend({
 			id: id
 		}).then(item => {
 			let json = JSON.parse(item);
-			console.log('jsonPostUpdated', json);
+			// console.log('jsonPostUpdated', json);
 			updatedPosts.addObject(json);
 		});
 	},

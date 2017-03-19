@@ -1,6 +1,20 @@
 @import 'materialize';
 @import 'ember-cli-materialize';
 
+
+.animateUp {
+ transform-style: preserve-3d;
+ animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1s infinite alternate both running animateUp;
+}
+
+/* @keyframes duration | timing-function | delay | 
+   iteration-count | direction | fill-mode | play-state | name */
+  // animation: 3s ease-in 1s 2 reverse both paused slidein;
+
+@keyframes animateUp {
+  from {transform: scale3d(1,1,1);}
+  to {transform: scale3d(1.1,1.1,1.1);}
+}
 .page-info-box {
   position:absolute;
   bottom:-13px;
