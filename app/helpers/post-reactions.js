@@ -27,15 +27,17 @@ export function postReactions([postId, reaction, compare, like, love, wow, haha,
     
     function addReaction(type, atual, original) {
       let diff = atual - original;
-      if (diff > 0 || diff < 0) {
-        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions anima" data-animated="false" data-animate-to=' + atual + '><span> ' + (original) + '</span></li>';  
-      } else  {
-        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"> ' + (diff) + '</li>';
+      if (diff > 0) {
+        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"><span class="reactions-atual"> ' + atual + '</span><span class="reactions-diff-mais"> ' + diff + '</span></li>';  
+      } else if (diff < 0) {
+        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"><span class="reactions-atual"> ' + atual + '</span><span class="reactions-diff-menos"> ' + diff + '</span></li>';  
+      } else {
+        return '<li><img src="/assets/images/facebook-'+ type +'.png" class="fb-reactions"><span> ' + atual + '</span></li>';
       }
     }  
     // console.log('compare', compare);
     if (postId === reaction.id) {
-      out = '<ul>';
+      out = '<ul class="reactions-list">';
       if (!compare) {
         out += '<li><img src="/assets/images/facebook-like.png" class="fb-reactions"> ' + reaction.like.summary.total_count + '</li>' +
          '<li><img src="/assets/images/facebook-love.png" class="fb-reactions"> ' + reaction.love.summary.total_count + '</li>' +

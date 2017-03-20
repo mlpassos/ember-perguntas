@@ -12,9 +12,48 @@
   // animation: 3s ease-in 1s 2 reverse both paused slidein;
 
 @keyframes animateUp {
-  from {transform: scale3d(1,1,1);}
-  to {transform: scale3d(1.1,1.1,1.1);}
+  from {
+    transform: translateY(0);
+    opacity:0;
+  }
+  to {
+    transform: translateY(-16px);
+    opacity:1;
+  }
 }
+
+.reactions-atual {
+
+}
+
+.reactions-list li {
+  position: relative;
+}
+
+.reactions-diff-mais {
+  position: absolute;
+  top:0;
+  right:4px;
+  color:#fff;
+  padding:1px 5px;
+  font-size: 9px;
+  background-color:green;
+  border-radius: 50%;
+  animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s 1 normal both running animateUp;
+}
+
+.reactions-diff-menos {
+  position: absolute;
+  top:0;
+  right:4px;
+  color:#fff;
+  padding:1px 5px;
+  font-size: 9px;
+  background-color: red;
+  border-radius: 50%;
+  animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s 1 normal both running animateUp;
+}
+
 .page-info-box {
   position:absolute;
   bottom:-13px;

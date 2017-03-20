@@ -2,10 +2,13 @@ import Ember from 'ember';
 import TransitionToListenerRoute from 'ember-cli-routing-service/routes/transition-to-listener';
 
 const {get} = Ember;
- 
+
 export default TransitionToListenerRoute.extend({
+	moment: Ember.inject.service(),
     beforeModel(){
     	let _this = this;
+		this.get('moment').setTimeZone('America/Belem');
+		this.get('moment').setLocale('pt-br');
 		return this.get('session').fetch().catch(function(){
 			_this.router.transitionTo('home');
 		});

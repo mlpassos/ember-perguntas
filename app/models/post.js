@@ -18,7 +18,12 @@ export default DS.Model.extend({
 	sad: attr(),
 	wow: attr(),
 	comments: DS.hasMany('comment', {async: true}),
-	summary: attr()
+	summary: attr(),
+	data_criado: attr('date', {
+		defaultValue() {
+			return new Date();
+		}
+	})
 	// ,
 	// comments_count: Ember.computed('comment', function() {
 	// 	console.log('aquiaqui', `${this.get('comment').length()}`);

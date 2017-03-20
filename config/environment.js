@@ -45,6 +45,13 @@ module.exports = function(environment) {
         showImageNumberLabel:     true
       }
     },
+    moment: {
+      // To cherry-pick specific locale support into your application.
+      // Full list of locales: https://github.com/moment/moment/tree/2.10.3/locale
+      includeLocales: ['pt-br'],
+      includeTimezone: 'all',
+      localeOutputPath: 'assets/moment-locales'
+    },
     EmberENV: {
 
       FEATURES: {

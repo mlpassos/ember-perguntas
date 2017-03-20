@@ -34,10 +34,12 @@
             </p>
               {{#if reactions}}
                 {{#each reactions as |reaction|}}
-                  {{post-reactions post.id reaction false}}
-                  {{!--{{#if updatedPosts}}
+                  {{!--{{post-reactions post.id reaction false}}--}}
+                  {{#if updatedPosts}}
                     {{post-reactions post.id reaction true post.like.summary.total_count post.love.summary.total_count post.wow.summary.total_count post.haha.summary.total_count post.sad.summary.total_count post.angry.summary.total_count}}
-                  {{/if}}--}}
+                  {{else}}
+                    {{post-reactions post.id reaction false}}
+                  {{/if}}
                 {{/each}}
               {{/if}}              
             <p>
@@ -58,6 +60,14 @@
                 </p>
               {{/each}}
               <hr>
+            </p>
+            <p>
+              {{#if updatedPosts}}
+                {{#if post.data_criado}}
+                  {{!--{{moment-format post.data_criado 'DD-MM-YYYY'}}--}}
+                  Seguindo há {{moment-from-now post.data_criado hideSuffix=true locale="pt-br"}}
+                {{/if}}
+              {{/if}}
             </p>
             <p>
               {{#if following}}
