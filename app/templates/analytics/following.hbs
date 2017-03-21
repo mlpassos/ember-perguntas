@@ -1,5 +1,6 @@
 {{outlet}}
 {{log 'model' model}}
+<a href="#" {{action "refreshModel"}}>Refresh</a>
 {{posts-list posts=model updatedPosts=updatedPosts reactions=reactions session=session}}
 {{!-- {{#each model as |item|}}
   {{item.id}} <br>

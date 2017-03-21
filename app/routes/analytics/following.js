@@ -12,7 +12,7 @@ export default Ember.Route.extend({
 				getUpdatedPost(post.get('id'), _this);
 				getReactions(post.get('id'), _this);
 				return post;
-			})
+			});
 		});
 	},
 	deactivate() {
@@ -42,8 +42,15 @@ export default Ember.Route.extend({
 	        let jsonItem = JSON.parse(item);
 	        reactions.addObject(jsonItem);
 	    }, function() {
-	        reject(new Error('getJSON: `' + id + '` failed with status: [' + this.status + ']'));
+	        console.log('Erro ao adicionar reactions');
 	    });
+	},
+	actions: {
+		refreshModel() {
+			this.set('updatedPosts', []);
+			this.set('reactions', []);
+			this.refresh();
+		}
 	},
 	setupController(controller) {
 		this._super(...arguments);

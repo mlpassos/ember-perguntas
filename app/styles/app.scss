@@ -4,7 +4,7 @@
 
 .animateUp {
  transform-style: preserve-3d;
- animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1s infinite alternate both running animateUp;
+ animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s infinite alternate both running animateUp;
 }
 
 /* @keyframes duration | timing-function | delay | 
@@ -39,7 +39,7 @@
   font-size: 9px;
   background-color:green;
   border-radius: 50%;
-  animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) .5s 1 normal both running animateUp;
+  animation: .6s cubic-bezier(0.785, 0.135, 0.15, 0.86) .25s 1 normal both running animateUp;
 }
 
 .reactions-diff-menos {

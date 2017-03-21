@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Route.extend({
 	postUsers: [],
@@ -10,14 +11,14 @@ export default Ember.Route.extend({
 	    console.log('computed model', this.get('modelo'));
 	    let store = this.get('store');
 	    let model = this.get('modelo');
-	    let _this = this;
+	    // let _this = this;
 	    var out = new Ember.RSVP.Promise(function(resolve, reject) {
 	    	store.findRecord('post', model.id).then(post=> {
 	    		console.log('Achou post. isFollowing');
 	    		// _this.set('following', true);
 	    		// console.log('flw', _this.get('following'));
 		    	resolve(post);
-		    }, error=> {
+		    }, function() {
 		    	// _this.set('following', false);
 		    	reject(false);
 		    });
@@ -172,7 +173,7 @@ export default Ember.Route.extend({
 			});
 			Ember.RSVP.allSettled([
 			  promises	
-			]).then(function(values){
+			]).then(function(){
 			  // console.log('values', values[0]);
 			  // var mapFn = function(item){
 			  // 	console.log(item);

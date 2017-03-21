@@ -29,9 +29,13 @@ export default Ember.Component.extend({
 		});
 		// this.set('grid', $grid);
 	},
+	didUpdateAttrs() {
+		this._super(...arguments);
+		console.log('updatedAttrs post-list');
+	},
 	didRender() {
 		this._super(...arguments);
-		let _this = this;
+		// let _this = this;
 		console.log('didrender posts-list');
 		// let $grid = this.get('grid');
 		// $grid.imagesLoaded().progress( function() {

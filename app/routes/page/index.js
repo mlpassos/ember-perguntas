@@ -23,7 +23,7 @@ export default Ember.Route.extend({
 						getJSON(post.id, tk).then(data=> {
 							_this.get('reactions').addObject(data);
 						});	
-						getIsFollowingPost(post.id, store).then(response=> {
+						getIsFollowingPost(post.id, store).then(function() {
 							_this.get('following').addObject({
 								id: post.id
 							});
@@ -59,12 +59,12 @@ export default Ember.Route.extend({
 	},
 	getIsFollowingPost: function(postid, store) {
 		var promise = new Ember.RSVP.Promise(function(resolve, reject) {
-	    	store.findRecord('post', postid).then(post=> {
+	    	store.findRecord('post', postid).then(function() {
 	    		console.log('Achou post. isFollowing');
 	    		// _this.set('following', true);
 	    		// console.log('flw', _this.get('following'));
 		    	resolve(true);
-		    }, error=> {
+		    }, function() {
 		    	// _this.set('following', false);
 		    	reject(false);
 			});
