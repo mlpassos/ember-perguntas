@@ -134,7 +134,7 @@ export default Ember.Route.extend({
 			var promises = [];
 			// let count = 0;
 			// let promisesCount = [];
-			let resultCount = null;
+			// let resultCount = null;
 			
 			// comment count
 			
