@@ -42,6 +42,9 @@ export default Ember.Component.extend({
 		},
 		recordPost(post) {
 			this.sendAction('on-record', post);
+		},
+		unfollowPost(post) {
+			this.sendAction('on-unfollow', post);
 		}
 	}
 });

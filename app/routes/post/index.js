@@ -128,6 +128,63 @@ export default Ember.Route.extend({
 		// controller.set('following', this.get('following'));
 	},
 	actions: {
+		unfollowPost(post) {
+			console.log('unfollow', post);
+			// let _this = this;
+			var promises = [];
+			// let count = 0;
+			// let promisesCount = [];
+			let resultCount = null;
+			
+			// comment count
+			
+			// this.store.findAll('comment').then(function(res) {				
+			// 	resultCount = res.get('length');
+			// 	console.log('comentários: ' + resultCount);
+			// });
+
+			this.store.find('post', post.id).then(function(postRes) {
+				console.log(postRes.get('id'));
+				postRes.get('comments').map(function(comment) {
+					let commentId = comment.get('id');
+					comment.deleteRecord();
+					promises.pushObject(new Ember.RSVP.Promise(function(resolve, reject) {
+						comment.save().then(function() {
+							let currentdate = new Date(); 
+							let datetime = "Last Sync: " + currentdate.getDate() + "/" +
+											(currentdate.getMonth()+1)  + "/"  +
+											currentdate.getFullYear() + " @ "   +
+											currentdate.getHours() + ":"  +
+											currentdate.getMinutes() + ":"  +
+											currentdate.getSeconds();
+							console.log('deletado ' + commentId + ' @ ' + datetime);
+							resolve('success');
+						}, function() {
+							reject(new Error('getJSON: `' + comment.get('message') + '` failed with status: [' + this.status + ']'));
+						});
+					}));
+				});
+				Ember.RSVP.allSettled([
+					promises	
+				]).then(function() {
+					let currentdate = new Date(); 
+					let datetime = "Last Sync: " + currentdate.getDate() + "/" +
+									(currentdate.getMonth()+1)  + "/"  +
+									currentdate.getFullYear() + " @ "   +
+									currentdate.getHours() + ":"  +
+									currentdate.getMinutes() + ":"  +
+									currentdate.getSeconds();
+					console.log('comentários deletados, agora exclui o post @ ' + datetime);
+					// console.log('postRes', postRes.get('currentState.stateName'));
+					postRes.save().then(function() {
+						postRes.deleteRecord();
+						postRes.save().then(function() {
+							console.log('post deletado');
+						});
+					});
+				});
+			});
+		},
 		followPost(post) {
 			let _this = this;
 			let summary = JSON.parse(JSON.stringify(post.comments.summary));
@@ -165,7 +222,6 @@ export default Ember.Route.extend({
 				    comment.save().then(function() {
 						// console.log('salvou comment: ' + comment.get('message'));
 						resolve('success');
-						
 					}, function() {
 						reject(new Error('getJSON: `' + comment.get('message') + '` failed with status: [' + this.status + ']'));
 					});
