@@ -22,9 +22,10 @@ export default Ember.Component.extend({
 			// options
 			itemSelector: '.isoitem',
 			// layoutMode: 'fitRows',
-		percentPosition: true
+			percentPosition: true
 		});
 		$grid.imagesLoaded().progress( function() {
+			console.log('isotope layouting...');
 			$grid.isotope('layout');
 		});
 		// this.set('grid', $grid);
