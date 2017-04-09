@@ -9,6 +9,7 @@ export default Ember.Component.extend({
 	},
 	didInsertElement() {
 		this._super(...arguments);
+		var _this = this;
 		console.log('InsertElement aqui');
 		// this.$('.animateUp').each(function(item) {
 			// console.log(this.$('.fb-reactions'));
@@ -24,9 +25,23 @@ export default Ember.Component.extend({
 			// layoutMode: 'fitRows',
 			percentPosition: true
 		});
-		$grid.imagesLoaded().progress( function() {
+		// this.$('ul.reactions-list').imagesLoaded().progress( function(instance,image) {
+		// 	console.log('carregando reactions...');
+		// 	var result = image.isLoaded ? 'loaded' : 'broken';
+		// 	console.log( 'reaction image is ' + result + ' for ' + image.img.src );
+		// });
+		$grid.imagesLoaded().progress( function(instance,image) {
 			console.log('isotope layouting...');
-			$grid.isotope('layout');
+			var result = image.isLoaded ? 'loaded' : 'broken';
+    		if (image.isLoaded) {
+				console.log( 'image is ' + result + ' for ' + image.img.src );
+			} else {
+				console.log('not loaded yet');
+			}
+			_this.$('.isogrid').isotope('layout');
+		}).done(function(instance) {
+			console.log('todas imagens carregaram');
+			// _this.$('.isogrid').isotope('layout');
 		});
 		// this.set('grid', $grid);
 	},
